@@ -7,24 +7,28 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-public class User {
+public class Board {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)//DB의 연결된 넘버링전략 따라감
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@Column(nullable = false, length = 30)
-	private String username;
-	@Column(nullable = false, length = 100)
-	private String password;
-	@Column(nullable = false, length = 50)
-	private String email;
+	private String title;
+	@Lob
+	private String content;
+	@ColumnDefault("0")
+	private int count;
 	@CreationTimestamp
 	private Timestamp createDate;
-	@ColumnDefault("'user'")
-	private String role;
+	@ManyToOne
+	@JoinColumn(name = "userId")
+	private User user;
 }
