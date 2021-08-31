@@ -1,6 +1,12 @@
 package com.cos.blog.test;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +28,18 @@ public class DummyControllerTest {
 			return new IllegalArgumentException("해당 유저가 없습니다. id: "+id);
 		});
 		return user;
+	}
+	
+	@GetMapping("/dummy/users")
+	public List<User> list(){
+		return userRepository.findAll();
+	}
+	
+	@GetMapping("/dummy/user")
+	public List<User> pageList(@PageableDefault(size = 2, sort = "id", direction = Direction.DESC) Pageable pageable){
+		Page<User> page = userRepository.findAll(pageable);
+		List<User> pageList = page.getContent();
+		return pageList;
 	}
 	
 	@PostMapping("/dummy/join")
