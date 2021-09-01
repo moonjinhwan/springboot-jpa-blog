@@ -24,23 +24,23 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 public class User {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)//DB의 연결된 넘버링전략 따라감
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // DB의 연결된 넘버링전략 따라감
 	private int id;
-	
-	@Column(nullable = false, length = 30)
+
+	@Column(nullable = false, length = 30, unique = true)
 	private String username;
-	
+
 	@Column(nullable = false, length = 100)
 	private String password;
-	
+
 	@Column(nullable = false, length = 50)
 	private String email;
-	
+
 	@CreationTimestamp
 	private Timestamp createDate;
-	
+
 	@Enumerated(EnumType.STRING)
 	private RoleType role;
 }
