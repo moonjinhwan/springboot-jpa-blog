@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../layout/header.jsp"%>
 <div class="container">
-	<h2>Stacked form</h2>
+	<h2>회원가입</h2>
 	<form>
 		<div class="form-group">
 			<label for="username">username:</label> <input type="username" class="form-control" id="username" placeholder="Enter username" name="username">
