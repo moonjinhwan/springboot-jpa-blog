@@ -21,7 +21,7 @@ public class UserApiController {
 	public ResponseDto<Integer> join(@RequestBody User user){
 		//실제 DB에 인서트하기.
 		user.setRole(RoleType.USER);
-		int result = userService.회원가입(user);
-		return new ResponseDto<>(HttpStatus.OK, result);
+		userService.회원가입(user);
+		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 }
