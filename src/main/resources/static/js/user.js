@@ -17,7 +17,7 @@ let index = {
 		}
 
 		$.ajax({
-			url: '/blog/api/user',
+			url: '/api/user',
 			type: 'POST',
 			data: JSON.stringify(data),
 			contentType: "application/json; charset=UTF-8",  
@@ -25,7 +25,7 @@ let index = {
 			success: function(resp){
 				//alert("회원가입 완료");
 				//alert(resp);
-				location.href="/blog";
+				location.href="/";
 			},
 			error: function(error){
 				alert(JSON.stringify(error));
@@ -40,7 +40,7 @@ let index = {
 		}
 
 		$.ajax({
-			url: '/blog/api/user/login',
+			url: '/api/user/login',
 			type: 'POST',
 			data: JSON.stringify(data),
 			contentType: "application/json; charset=UTF-8",  
@@ -48,7 +48,7 @@ let index = {
 			success: function(resp){
 				//alert("로그인");
 				//alert(resp);
-				location.href="/blog";
+				location.href="/";
 			},
 			error: function(error){
 				alert(JSON.stringify(error));

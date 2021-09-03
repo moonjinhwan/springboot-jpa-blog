@@ -19,9 +19,6 @@ public class UserApiController {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
-	private HttpSession httpSession;
-	
 	@PostMapping("/api/user")
 	public ResponseDto<Integer> join(@RequestBody User user){
 		//실제 DB에 인서트하기.
@@ -30,13 +27,13 @@ public class UserApiController {
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 	
-	@PostMapping("/api/user/login")
-	public ResponseDto<Integer> login(@RequestBody User user){
-		User principle = userService.로그인(user);
-		if(principle != null) {
-			System.out.println("로그인 완료");
-			httpSession.setAttribute("principle", principle);
-		}
-		return new ResponseDto<>(HttpStatus.OK.value(), 1);
-	}
+//	@PostMapping("/api/user/login")
+//	public ResponseDto<Integer> login(@RequestBody User user){
+//		User principle = userService.로그인(user);
+//		if(principle != null) {
+//			System.out.println("로그인 완료");
+//			httpSession.setAttribute("principle", principle);
+//		}
+//		return new ResponseDto<>(HttpStatus.OK.value(), 1);
+//	}
 }
