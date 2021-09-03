@@ -19,8 +19,8 @@ let index = {
 			contentType: "application/json; charset=UTF-8",  
 			dataType: 'json',
 			success: function(resp){
-				alert("회원가입 완료");
-				alert(resp);
+				//alert("회원가입 완료");
+				//alert(resp);
 				location.href="/blog";
 			},
 			error: function(error){
