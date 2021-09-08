@@ -3,6 +3,8 @@ package com.cos.blog.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,8 +22,13 @@ public class BoardApiContorller {
 	
 	@PostMapping("/api/board")
 	public ResponseDto<Integer> 글쓰기(@RequestBody Board board ,@AuthenticationPrincipal PrincipalDetail principalDetail) {
-		System.out.println("호출됐어요");
 		boardService.글쓰기(board, principalDetail.getUser());
+		return new ResponseDto<>(HttpStatus.OK.value(), 1);
+	}
+	
+	@DeleteMapping("/api/board/{id}")
+	public ResponseDto<Integer> 글삭제(@PathVariable int id){
+		boardService.글삭제(id);
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
 }
