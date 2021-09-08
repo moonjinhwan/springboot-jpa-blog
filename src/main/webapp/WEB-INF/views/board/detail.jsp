@@ -4,7 +4,7 @@
 <div class="container">
 	<button id="btn" onclick="history.back()" class="btn btn-primary">돌아가기</button>
 	<c:if test="${board.user.id == principal.user.id}">
-		<button id="btn-update" class="btn btn-primary">수정</button>
+		<a id="btn-update-form"  href="/board/${board.id}/updateForm" class="btn btn-primary">수정</a>
 		<button id="btn-delete" class="btn btn-primary">삭제</button>
 	</c:if>
 	<form>
