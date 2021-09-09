@@ -25,6 +25,17 @@ public class UserService {
 		userRepository.save(user);
 	}
 	
+	@Transactional
+	public void 회원수정(User requestUser) {
+		User user  = userRepository.findById(requestUser.getId())
+				.orElseThrow(()->{
+					return new IllegalArgumentException("회원이 없습니다.");
+				});
+		user.setEmail(requestUser.getEmail());
+		String decodePwd=requestUser.getPassword();
+		String encodePwd=encoder.encode(decodePwd);
+		user.setPassword(encodePwd);
+	}
 }
 
 //@Transactional(readOnly = true)
