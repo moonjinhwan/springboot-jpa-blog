@@ -23,25 +23,26 @@ import com.cos.blog.service.UserService;
 
 @RestController
 public class UserApiController {
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
-	private AuthenticationManager authenticationManager; 
-	
+	private AuthenticationManager authenticationManager;
+
 	@PostMapping("/auth/joinProc")
-	public ResponseDto<Integer> join(@RequestBody User user){
-		//실제 DB에 인서트하기.
+	public ResponseDto<Integer> join(@RequestBody User user) {
+		// 실제 DB에 인서트하기.
 		user.setRole(RoleType.USER);
 		userService.회원가입(user);
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
-	
+
 	@PutMapping("/api/user")
-	public ResponseDto<Integer> update(@RequestBody User user){
+	public ResponseDto<Integer> update(@RequestBody User user) {
 		userService.회원수정(user);
-		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+		Authentication authentication = authenticationManager
+				.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}

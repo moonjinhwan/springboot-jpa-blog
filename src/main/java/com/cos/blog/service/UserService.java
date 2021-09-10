@@ -10,13 +10,13 @@ import com.cos.blog.repository.UserRepository;
 
 @Service
 public class UserService {
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
-	@Autowired 
+
+	@Autowired
 	private BCryptPasswordEncoder encoder;
-	
+
 	@Transactional
 	public void 회원가입(User user) {
 		String rawPass = user.getPassword();
@@ -24,22 +24,24 @@ public class UserService {
 		user.setPassword(encPass);
 		userRepository.save(user);
 	}
-	
+
 	@Transactional
 	public void 회원수정(User requestUser) {
-		User user  = userRepository.findById(requestUser.getId())
-				.orElseThrow(()->{
-					return new IllegalArgumentException("회원이 없습니다.");
-				});
-		user.setEmail(requestUser.getEmail());
-		String decodePwd=requestUser.getPassword();
-		String encodePwd=encoder.encode(decodePwd);
-		user.setPassword(encodePwd);
+		User user = userRepository.findById(requestUser.getId()).orElseThrow(() -> {
+			return new IllegalArgumentException("회원이 없습니다.");
+		});
+		//값이 없을때 수정 가능
+		if (user.getOauth() == null || "".equals(user.getOauth())) {
+			user.setEmail(requestUser.getEmail());
+			String decodePwd = requestUser.getPassword();
+			String encodePwd = encoder.encode(decodePwd);
+			user.setPassword(encodePwd);
+		}
 	}
-	
+
 	@Transactional
 	public User 회원찾기(String username) {
-		User user = userRepository.findByUsername(username).orElseGet(()->{
+		User user = userRepository.findByUsername(username).orElseGet(() -> {
 			return new User();
 		});
 		return user;
