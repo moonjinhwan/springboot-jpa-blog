@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -49,6 +50,7 @@ public class Board {
 	//외래키가 아니다. select문을 위해서 존재하는것.
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "board")
 	@JsonIgnoreProperties({"board"})//Reply안에 board를 불러올때 무시함
+	@OrderBy("id desc")
 	private List<Reply> replys;
 	
 	@ManyToOne//기본 전략이 EAGER 임.

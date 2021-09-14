@@ -9,6 +9,9 @@ let index = {
 		$("#btn-delete").on("click", () => {
 			this.deleteById();
 		});
+		$("#btn-replySave").on("click", () => {
+			this.replySave();
+		});
 	},
 
 	save: function() {
@@ -62,6 +65,27 @@ let index = {
 			success: function(resp) {
 				alert("글수정이 완료되었습니다.");
 				location.href = "/";
+			},
+			error: function(error) {
+				alert(JSON.stringify(error));
+			}
+		});
+	},
+	replySave: function(){
+		let data = {	
+			content: $("#content").val(),
+		}
+		let boardId= $("#boardId").val();
+		 
+		$.ajax({
+			url: `/api/board/${boardId}/reply`,
+			type: 'POST',
+			data: JSON.stringify(data),
+			contentType: "application/json; charset=UTF-8",
+			dataType: 'json',
+			success: function(resp) {
+				alert("댓글쓰기가 완료되었습니다.");
+				location.href = `/board/${boardId}`;
 			},
 			error: function(error) {
 				alert(JSON.stringify(error));

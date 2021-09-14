@@ -19,12 +19,15 @@
 	</form>
 	<hr />
 	<div class="card">
-		<div class="card-body">
-			<textarea class="form-control" rows="1"></textarea>
-		</div>
-		<div class="card-footer">
-			<button type="button" class="btn btn-primary">등록</button>
-		</div>
+		<form>
+			<input type="hidden" id="boardId" value="${board.id}">
+			<div class="card-body">
+				<textarea class="form-control" id="content" rows="1"></textarea>
+			</div>
+			<div class="card-footer">
+				<button type="button" id="btn-replySave" class="btn btn-primary">등록</button>
+			</div>
+		</form>
 	</div>
 
 	<br />

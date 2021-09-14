@@ -9,15 +9,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cos.blog.model.Board;
+import com.cos.blog.model.Reply;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.BoardRepository;
+import com.cos.blog.repository.ReplyRepository;
 
 @Service
 public class BoardService {
 
 	@Autowired
 	private BoardRepository boardRepository;
-
+	@Autowired
+	private ReplyRepository replyRepository;
 	@Transactional
 	public void 글쓰기(Board board, User user) {
 		board.setCount(0);
@@ -51,5 +54,16 @@ public class BoardService {
 		});
 		board.setContent(requestBoard.getContent());
 		board.setTitle(requestBoard.getTitle());
+	}
+	
+	@Transactional
+	public void 댓글쓰기(User user, int boardId, Reply requestReply) {
+		System.out.println("댓글쓰기:"+ boardId);
+		Board board = boardRepository.findById(boardId).orElseThrow(()->{
+			return new IllegalArgumentException("댓글 쓰기 실패: 아이디를 찾을 수 없습니다. "+boardId);
+		});
+		requestReply.setUser(user);
+		requestReply.setBoard(board);
+		replyRepository.save(requestReply);
 	}
 }

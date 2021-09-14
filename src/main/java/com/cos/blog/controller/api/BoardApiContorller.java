@@ -14,29 +14,38 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cos.blog.config.auth.PrincipalDetail;
 import com.cos.blog.dto.ResponseDto;
 import com.cos.blog.model.Board;
+import com.cos.blog.model.Reply;
 import com.cos.blog.service.BoardService;
 
 @RestController
 public class BoardApiContorller {
-	
+
 	@Autowired
 	private BoardService boardService;
-	
+
 	@PostMapping("/api/board")
-	public ResponseDto<Integer> 글쓰기(@RequestBody Board board ,@AuthenticationPrincipal PrincipalDetail principalDetail) {
+	public ResponseDto<Integer> 글쓰기(@RequestBody Board board,
+			@AuthenticationPrincipal PrincipalDetail principalDetail) {
 		boardService.글쓰기(board, principalDetail.getUser());
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
-	
+
 	@DeleteMapping("/api/board/{id}")
-	public ResponseDto<Integer> 글삭제(@PathVariable int id){
+	public ResponseDto<Integer> 글삭제(@PathVariable int id) {
 		boardService.글삭제(id);
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
-	
+
 	@PutMapping("/api/board/{id}")
-	public ResponseDto<Integer> 글수정(@PathVariable int id, @RequestBody Board board){
+	public ResponseDto<Integer> 글수정(@PathVariable int id, @RequestBody Board board) {
 		boardService.글수정(id, board);
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
+
+	@PostMapping("/api/board/{boardId}/reply")
+	public ResponseDto<Integer> replySave(@PathVariable int boardId, @RequestBody Reply reply, @AuthenticationPrincipal PrincipalDetail principalDetail) {
+		boardService.댓글쓰기(principalDetail.getUser(), boardId, reply);
+		return new ResponseDto<>(HttpStatus.OK.value(), 1);
+	}
+
 }
