@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -46,7 +48,8 @@ public class Board {
 	
 	//외래키가 아니다. select문을 위해서 존재하는것.
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "board")
-	private List<Reply> reply;
+	@JsonIgnoreProperties({"board"})//Reply안에 board를 불러올때 무시함
+	private List<Reply> replys;
 	
 	@ManyToOne//기본 전략이 EAGER 임.
 	@JoinColumn(name = "userId")
