@@ -47,5 +47,9 @@ public class BoardApiContorller {
 		boardService.댓글쓰기(principalDetail.getUser(), boardId, reply);
 		return new ResponseDto<>(HttpStatus.OK.value(), 1);
 	}
-
+	@DeleteMapping("/api/board/{boardid}/reply/{replyId}")
+	public ResponseDto<Integer> 댓글삭제(@PathVariable int replyId) {
+		boardService.댓글삭제(replyId);
+		return new ResponseDto<>(HttpStatus.OK.value(), 1);
+	}
 }

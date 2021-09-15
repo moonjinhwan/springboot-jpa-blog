@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -48,7 +49,7 @@ public class Board {
 	private LocalDateTime createDate;
 	
 	//외래키가 아니다. select문을 위해서 존재하는것.
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "board")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "board", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties({"board"})//Reply안에 board를 불러올때 무시함
 	@OrderBy("id desc")
 	private List<Reply> replys;

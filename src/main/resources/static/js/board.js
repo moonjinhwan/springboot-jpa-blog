@@ -91,6 +91,21 @@ let index = {
 				alert(JSON.stringify(error));
 			}
 		});
+	},
+	replyDelete: function(boardId, replyId){
+		$.ajax({
+			url: `/api/board/${boardId}/reply/${replyId}`,
+			type: 'DELETE',
+			contentType: "application/json; charset=UTF-8",
+			dataType: 'json',
+			success: function(resp) {
+				alert("글삭제가 완료되었습니다.");
+				location.href = `/board/${boardId}`;
+			},
+			error: function(error) {
+				alert(JSON.stringify(error));
+			}
+		});
 	}
 }
 index.init();
